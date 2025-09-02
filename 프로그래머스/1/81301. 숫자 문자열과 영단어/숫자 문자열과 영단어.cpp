@@ -3,34 +3,37 @@
 
 using namespace std;
 
-int solution(string s) // 문자열 배열 vector<char> s = {'o','n','e','4','s','e','v','e','n','e','i','g','h','t'}; 
-{ 
-    int answer = 0;
-    vector<string> A = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-    string Save;
-    string RealSave;
-    for (int i = 0; i < s.size(); ++i) // string s 를 받음, string s[i] 
+int solution(string s) 
+{
+    string out;
+    int i = 0;
+    while (i < (int)s.size()) 
     {
-        if (s[i] >= 97 && s[i] <= 122)
+        if (s[i] >= '0' && s[i] <= '9') 
         {
-            Save += s[i];
-        
-            for (int j = 0; j < A.size(); ++j)
-            {
-                if (Save == A[j])
-                {
-                    RealSave += to_string(j); //정수값을 string으로 변경
-                    Save = "";
-                    break;
-                }           
-            }
+            out.push_back(s[i]);
+            i++;
+            continue;
         }
+        if (s.compare(i, 4, "zero") == 0) { out += '0'; i += 4; }
+        else if (s.compare(i, 3, "one") == 0) { out += '1'; i += 3; }
+        else if (s.compare(i, 3, "two") == 0) { out += '2'; i += 3; }
+        else if (s.compare(i, 5, "three") == 0) { out += '3'; i += 5; }
+        else if (s.compare(i, 4, "four") == 0) { out += '4'; i += 4; }
+        else if (s.compare(i, 4, "five") == 0) { out += '5'; i += 4; }
+        else if (s.compare(i, 3, "six") == 0) { out += '6'; i += 3; }
+        else if (s.compare(i, 5, "seven") == 0) { out += '7'; i += 5; }
+        else if (s.compare(i, 5, "eight") == 0) { out += '8'; i += 5; }
+        else if (s.compare(i, 4, "nine") == 0) { out += '9'; i += 4; }
         else 
         {
-            RealSave += s[i];
-            // RealSave = "1478";
+            i++;
         }
     }
-    
-    return stoi(RealSave);
+    long long val = 0;
+    for (int k = 0; k < (int)out.size(); k++) 
+    {
+        val = val * 10 + (out[k] - '0');
+    }
+    return (int)val;
 }
